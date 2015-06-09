@@ -4,14 +4,16 @@ require 'bunny'
 
 class RabbitMQTransmission
   def initialize()
-    
+    @chanelRabbit = 0
   end
   
   def SendMessage(message,name_queue)
     
-    connectionRabbit()
+    #connectionRabbit()
     #selection queue
-    queue = @chanelRabbit.queue(name_queue)
+    #queue = @chanelRabbit.queue(name_queue)
+    
+    queue = getQueue(name_queue)
     #publish message
     queue.publish(message);
     #close connection
@@ -22,10 +24,11 @@ class RabbitMQTransmission
 
   def ReciveMessage(name_queue)
     #connection to instanse RabbitMQ
-    connectionRabbit()
+#    connectionRabbit()
     #check queue
-    queue = @chanelRabbit.queue(name_queue)
+#   queue = @chanelRabbit.queue(name_queue)
     
+    queue = getQueue(name_queue)
     #initialization data massive
     data = Array.new 
     
@@ -39,7 +42,17 @@ class RabbitMQTransmission
     data
   end
   
-private 
+protected 
+  
+  def getQueue(name)
+    #connection to instanse RabbitMQ
+    connectionRabbit()
+    #check queue
+    queue = @chanelRabbit.queue(name)
+    return queue
+  end
+
+private  
   def connectionRabbit()
     
     #establishing connection
