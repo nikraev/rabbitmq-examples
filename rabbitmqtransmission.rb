@@ -55,25 +55,3 @@ private
   end
 end 
 
-mass = Array.new
-mass << 1
-mass << 2
-mass << 3
-mass << 4
-
-
-rabbit = RabbitMQTransmission.new
-puts "Message is send\n" if rabbit.SendMessage(mass,"data")
-
-values = Array.new
-values = rabbit.ReciveMessage("data")
-
-values.each do |element|
-  puts element.to_s  
-  
-end
-    
-#data.each do |element|
-#      puts "#{element}"
-#end
-
